@@ -6,7 +6,7 @@
         select * from user where name=#{name} and password=#{password}
     </select>
     <insert id="addUser" parameterType="User">
-        insert into user value (null,#{name},#{password},#{age},#{gender})
+        insert into user value (null,#{name},#{password},#{age},#{gender},#{imagePath})
     </insert>
     <delete id="delUserById" parameterType="Integer">
         delete from user where id=#{id}
@@ -26,7 +26,7 @@
         select * from user where id=#{id}
     </select>
     <update id="updateUser" parameterType="user">
-        update user set name=#{name},age=#{age},gender=#{gender} where id=#{id}
+        update user set name=#{name},age=#{age},gender=#{gender},imagePath=#{imagePath} where id=#{id}
     </update>
     <delete id="deleteUser" parameterType="list">
         delete from user where id in

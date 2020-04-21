@@ -11,4 +11,5 @@ public class User {
     private Integer password;
     private Integer age;
     private String gender;
+    private String imagePath;
 }

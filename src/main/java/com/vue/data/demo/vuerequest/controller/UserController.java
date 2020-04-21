@@ -159,7 +159,7 @@ public class UserController {
 
     @PostMapping("imagesUpload")
     public String imagesUpload(MultipartFile file) {
-        String filePath = "d:/myImage"; //上传路径
+        String filePath = "d:/myImage/"; //上传路径
         String fileName = file.getOriginalFilename(); //文件名
         String suffix = fileName.substring(fileName.lastIndexOf(".")); //取的文件的后缀名
         fileName = UUID.randomUUID() + suffix; //新的文件名 防止同名上传时覆盖
