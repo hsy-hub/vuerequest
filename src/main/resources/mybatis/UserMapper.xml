@@ -6,13 +6,22 @@
         select * from user where name=#{name} and password=#{password}
     </select>
     <insert id="addUser" parameterType="User">
-        insert into user value (null,#{name},#{password},#{age},#{gender},#{imagePath})
+        insert into user value (null,#{name},#{password},#{age},null,null)
     </insert>
     <delete id="delUserById" parameterType="Integer">
         delete from user where id=#{id}
     </delete>
     <select id="getUserList" parameterType="Map" resultType="User">
-        select * from user limit #{pageStart},#{pageSize}
+        select * from user
+        <where>
+            <if test="name != null and name !=''">
+                and name like '%${name}%'
+            </if>
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getUserList1" parameterType="user" resultType="User">
+        select * from user
     </select>
     <select id="getUserByName" parameterType="User" resultType="user">
         select * from user
@@ -22,11 +31,17 @@
             </if>
         </where>
     </select>
-    <select id="getUserById" parameterType="Integer" resultType="user">
+    <select id="getUserById1" parameterType="User" resultType="user">
         select * from user where id=#{id}
     </select>
     <update id="updateUser" parameterType="user">
-        update user set name=#{name},age=#{age},gender=#{gender},imagePath=#{imagePath} where id=#{id}
+        update user set name=#{name},age=#{age},gender=#{gender},headPath=#{headPath} where id=#{id}
+    </update>
+    <update id="updatePwd" parameterType="user">
+        update user set password=#{password} where id=#{id}
+    </update>
+    <update id="updateName" parameterType="user">
+        update user set name=#{name} where id=#{id}
     </update>
     <delete id="deleteUser" parameterType="list">
         delete from user where id in

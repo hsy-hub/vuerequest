@@ -3,6 +3,9 @@ package com.vue.data.demo.vuerequest.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+/**
+ * @author hsy
+ */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override

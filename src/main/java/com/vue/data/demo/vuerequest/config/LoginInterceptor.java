@@ -6,14 +6,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * @author hsy
+ */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
         String token = request.getHeader("Authorization");
         if (token != null){
-            token = token.substring(7); //去掉Bearer加空格
+            //去掉Bearer加空格
+            token = token.substring(7);
             if (JwtUtil.verity(token)){
                 return true;
             }else{

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * @author hsy
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -44,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById1(User user) {
+        return userMapper.getUserById1(user);
+    }
+
+    @Override
     public int updateUser(User user) {
         return userMapper.updateUser(user);
     }
@@ -58,9 +65,19 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectUserCount(name);
     }
 
-//    @Override
-//    public List<User> getUserList(User user) {
-//        return userMapper.getUserList(user);
-//    }
+    @Override
+    public int updatePwd(User user) {
+        return userMapper.updatePwd(user);
+    }
+
+    @Override
+    public int updateName(User user) {
+        return userMapper.updateName(user);
+    }
+
+    @Override
+    public List<User> getUserList1(User user) {
+        return userMapper.getUserList1(user);
+    }
 
 }

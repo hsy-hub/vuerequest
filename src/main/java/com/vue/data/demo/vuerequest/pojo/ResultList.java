@@ -1,7 +1,9 @@
 package com.vue.data.demo.vuerequest.pojo;
 
 import java.util.List;
-
+/**
+ * @author hsy
+ */
 public class ResultList {
     /**
      * code:0
