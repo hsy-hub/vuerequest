@@ -1,6 +1,9 @@
 package com.vue.data.demo.vuerequest.mapper;
 
+import com.vue.data.demo.vuerequest.pojo.Class_;
+import com.vue.data.demo.vuerequest.pojo.Major;
 import com.vue.data.demo.vuerequest.pojo.User;
+import com.vue.data.demo.vuerequest.pojo.UserList;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -52,7 +55,7 @@ public interface UserMapper {
      * @param map
      * @return
      */
-    public List<User> getUserList(HashMap map);
+    public List<UserList> getUserList(HashMap map);
 
     /**
      * getUserById
@@ -70,10 +73,10 @@ public interface UserMapper {
 
     /**
      * updateUser
-     * @param user
+     * @param userList
      * @return
      */
-    public int updateUser(User user);
+    public int updateUser(UserList userList);
 
     /**
      * deleteUser
@@ -102,4 +105,16 @@ public interface UserMapper {
      * @return
      */
     public int updateName(User user);
+    /**
+     * getMajorList
+     * @param major
+     * @return
+     */
+    public List<Major> getMajorList(Major major);
+    /**
+     * getClassList
+     * @param class_
+     * @return
+     */
+    public List<Class_> getClassList(Class_ class_);
 }

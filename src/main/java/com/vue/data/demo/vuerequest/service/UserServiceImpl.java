@@ -1,7 +1,10 @@
 package com.vue.data.demo.vuerequest.service;
 
 import com.vue.data.demo.vuerequest.mapper.UserMapper;
+import com.vue.data.demo.vuerequest.pojo.Class_;
+import com.vue.data.demo.vuerequest.pojo.Major;
 import com.vue.data.demo.vuerequest.pojo.User;
+import com.vue.data.demo.vuerequest.pojo.UserList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserList(HashMap map) {
+    public List<UserList> getUserList(HashMap map) {
         return userMapper.getUserList(map);
     }
 
@@ -51,8 +54,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUser(User user) {
-        return userMapper.updateUser(user);
+    public int updateUser(UserList userList) {
+        return userMapper.updateUser(userList);
     }
 
     @Override
@@ -73,6 +76,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateName(User user) {
         return userMapper.updateName(user);
+    }
+
+    @Override
+    public List<Major> getMajorList(Major major) {
+        return userMapper.getMajorList(major);
+    }
+
+    @Override
+    public List<Class_> getClassList(Class_ class_) {
+        return userMapper.getClassList(class_);
     }
 
     @Override

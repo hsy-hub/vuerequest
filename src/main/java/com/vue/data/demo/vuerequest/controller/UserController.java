@@ -1,7 +1,6 @@
 package com.vue.data.demo.vuerequest.controller;
 
-import com.vue.data.demo.vuerequest.pojo.ResultList;
-import com.vue.data.demo.vuerequest.pojo.User;
+import com.vue.data.demo.vuerequest.pojo.*;
 import com.vue.data.demo.vuerequest.service.UserService;
 import com.vue.data.demo.vuerequest.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class UserController {
 
 
     @PostMapping("addUser")
-    public int addUser(@RequestBody User user) {
+    public int addUser(User user) {
         return userService.addUser(user);
     }
 
@@ -102,6 +101,28 @@ public class UserController {
         return resultList;
     }
 
+    @GetMapping("getMajorList")
+    public Map<String,Object> getMajorList(Major major){
+        Map<String,Object> map = new HashMap<>();
+        List<Major> majorList = userService.getMajorList(major);
+        if (majorList != null){
+            map.put("code",0);
+            map.put("data",majorList);
+        }
+       return map;
+    }
+
+    @GetMapping("getClassList")
+    public Map<String,Object> getClassList(Class_ class_){
+        Map<String,Object> map = new HashMap<>();
+        List<Class_> classList = userService.getClassList(class_);
+        if (classList != null){
+            map.put("code",0);
+            map.put("data",classList);
+        }
+        return map;
+    }
+
     @PostMapping("getUserPageSearch")
     public Map<String, Object> getUserList(String name, Integer currentPage, Integer pageSize) {
 // 可选的int参数“currentPage,pageSize的类型”存在，但由于被声明为基元类型，因此无法转换为空值.而上面代码参数currentPage,pageSize的类型 为 int，它接受不了null值。
@@ -112,7 +133,7 @@ public class UserController {
         map.put("pageStart", pageStart);
         map.put("pageSize", pageSize);
         map.put("name", name);
-        List<User> userList = userService.getUserList(map);
+        List<UserList> userList = userService.getUserList(map);
         if (userList != null) {
             remap.put("code", 0);
             remap.put("data", userList);
@@ -140,7 +161,7 @@ public class UserController {
         User user = userService.getUserById(id);
         if (user != null) {
             map.put("code", 0);
-            map.put("result", user);
+            map.put("data", user);
         }
         return map;
     }
@@ -157,9 +178,9 @@ public class UserController {
     }
 
     @PostMapping("updateUser")
-    public Map<String, Object> updateUser(User user) {
+    public Map<String, Object> updateUser(UserList userList) {
         Map<String, Object> map = new HashMap<>();
-        Integer i = userService.updateUser(user);
+        Integer i = userService.updateUser(userList);
         String msg = "";
         if (i != null) {
             map.put("code", 0);

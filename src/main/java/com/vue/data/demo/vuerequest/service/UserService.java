@@ -1,6 +1,9 @@
 package com.vue.data.demo.vuerequest.service;
 
+import com.vue.data.demo.vuerequest.pojo.Class_;
+import com.vue.data.demo.vuerequest.pojo.Major;
 import com.vue.data.demo.vuerequest.pojo.User;
+import com.vue.data.demo.vuerequest.pojo.UserList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +51,7 @@ public interface UserService {
      * @param map
      * @return
      */
-    public List<User> getUserList(HashMap map);
+    public List<UserList> getUserList(HashMap map);
 
     /**
      * getUserById
@@ -66,10 +69,10 @@ public interface UserService {
 
     /**
      * updateUser
-     * @param user
+     * @param userList
      * @return
      */
-    public int updateUser(User user);
+    public int updateUser(UserList userList);
 
     /**
      * deleteUser
@@ -98,4 +101,17 @@ public interface UserService {
      * @return
      */
     public int updateName(User user);
+
+    /**
+     * getMajorList
+     * @param major
+     * @return
+     */
+    public List<Major> getMajorList(Major major);
+    /**
+     * getClassList
+     * @param class_
+     * @return
+     */
+    public List<Class_> getClassList(Class_ class_);
 }

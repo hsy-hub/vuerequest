@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vue.data.demo.vuerequest.mapper.CourseMapper">
+
+    <resultMap id="courseMap" type="course">
+        <id property="id" column="id"></id>
+        <result property="courseName" column="courseName" ></result>
+        <association property="major" javaType="Major">
+            <id property="id" column="id"></id>
+            <result property="majorName" column="majorName"></result>
+        </association>
+    </resultMap>
+    <select id="getCourseList" parameterType="Map" resultMap="courseMap">
+        select co.id,courseName,majorName,m_id from course co left join major m on co.m_id=m.id
+        <where>
+            <if test="courseName != null and courseName !=''">
+                and courseName like '%${courseName}%'
+            </if>
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+    <select id="selectCourseCount" resultType="integer">
+        select count(*) from course
+    </select>
+    <select id="getCourseById" parameterType="Course" resultType="course">
+        select * from course where id=#{id}
+    </select>
+
+    <select id="selectClassRoom" parameterType="ClassRoom" resultType="classRoom">
+        select * from classroom
+    </select>
+    <select id="selectClassRoomCount" resultType="integer">
+        select count(*) from classroom
+    </select>
+    <update id="updateYn" parameterType="classRoom">
+        update classroom set
+        <where>
+            <if test="yn=='是'">
+               and yn="否"
+            </if>
+            <if test="yn=='否'">
+                and yn="是"
+            </if>
+        </where>
+    </update>
+</mapper>

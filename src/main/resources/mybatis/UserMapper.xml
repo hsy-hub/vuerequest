@@ -3,16 +3,48 @@
 <mapper namespace="com.vue.data.demo.vuerequest.mapper.UserMapper">
 
     <select id="login" parameterType="user" resultType="User">
-        select * from user where name=#{name} and password=#{password}
+        select * from customer where name=#{name} and password=#{password}
     </select>
     <insert id="addUser" parameterType="User">
-        insert into user value (null,#{name},#{password},#{age},null,null)
+        insert into customer value (null,#{name},#{password},#{age},#{gender},null,null,null,null,null)
     </insert>
     <delete id="delUserById" parameterType="Integer">
-        delete from user where id=#{id}
+        delete from customer where id=#{id}
     </delete>
-    <select id="getUserList" parameterType="Map" resultType="User">
-        select * from user
+<resultMap id="UserMAp" type="userList">
+    <id property="id" column="id"></id>
+    <result property="name" column="name"></result>
+    <result property="age" column="age"></result>
+    <result property="gender" column="gender"></result>
+    <association property="major" javaType="Major">
+        <id property="id" column="m_id"></id>
+        <result property="majorName" column="majorName"></result>
+    </association>
+    <association property="class_" javaType="Class_">
+        <id property="id" column="c_id"></id>
+        <result property="className" column="className"></result>
+    </association>
+    <association property="rank" javaType="Rank">
+        <id property="id" column="r_id"></id>
+        <result property="level" column="level"></result>
+    </association>
+    <association property="course" javaType="Course">
+        <id property="id" column="co_id"></id>
+        <result property="courseName" column="courseName"></result>
+    </association>
+    <association property="grade" javaType="Grade">
+        <id property="id" column="g_id"></id>
+        <result property="credit" column="credit"></result>
+</association>
+</resultMap>
+    <select id="getUserList" parameterType="Map" resultMap="UserMAp">
+        SELECT cu.id,NAME,age,gender,majorName,className,LEVEL,courseName,credit
+        FROM customer cu
+        LEFT JOIN major m ON cu.m_id=m.id
+        LEFT JOIN class_ cl ON cu.cl_id=cl.id
+        LEFT JOIN rank r ON cu.r_id=r.id
+        LEFT JOIN course co ON cu.co_id=co.id
+        LEFT JOIN grade g ON cu.g_id=g.id
         <where>
             <if test="name != null and name !=''">
                 and name like '%${name}%'
@@ -21,35 +53,43 @@
         limit #{pageStart},#{pageSize}
     </select>
     <select id="getUserList1" parameterType="user" resultType="User">
-        select * from user
+        select * from customer
     </select>
     <select id="getUserByName" parameterType="User" resultType="user">
-        select * from user
+        select * from customer
         <where>
             <if test="name != null and name !=''">
                 and name like '%${name}%'
             </if>
         </where>
     </select>
-    <select id="getUserById1" parameterType="User" resultType="user">
-        select * from user where id=#{id}
+    <select id="getUserById" parameterType="User" resultType="user">
+        select * from customer where id=#{id}
     </select>
-    <update id="updateUser" parameterType="user">
-        update user set name=#{name},age=#{age},gender=#{gender},headPath=#{headPath} where id=#{id}
+    <select id="getMajorList" parameterType="major" resultType="Major">
+        select * from major
+    </select>
+    <select id="getClassList" parameterType="class_" resultType="Class_">
+        select * from class_
+    </select>
+    <update id="updateUser" parameterType="userList">
+        update customer set name=#{name},age=#{age},gender=#{gender},m_id=#{m_id},cl_id=#{cl_id} where id=#{id}
     </update>
-    <update id="updatePwd" parameterType="user">
-        update user set password=#{password} where id=#{id}
-    </update>
-    <update id="updateName" parameterType="user">
-        update user set name=#{name} where id=#{id}
-    </update>
+
+    <!--<update id="updatePwd" parameterType="user">-->
+        <!--update user set password=#{password} where id=#{id}-->
+    <!--</update>-->
+    <!--<update id="updateName" parameterType="user">-->
+        <!--update user set name=#{name} where id=#{id}-->
+    <!--</update>-->
     <delete id="deleteUser" parameterType="list">
-        delete from user where id in
+        delete from customer where id in
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </delete>
     <select id="selectUserCount" resultType="integer">
-        select count(*) from user
+        select count(*) from customer
     </select>
+
 </mapper>
