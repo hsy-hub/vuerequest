@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * customer 的列表（学生）
  * @author hsy
  */
 @Data
 @NoArgsConstructor
-public class UserList extends User{
+public class UserList extends Customer {
     /**
      * major
      */

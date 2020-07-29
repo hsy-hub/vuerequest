@@ -2,12 +2,9 @@ package com.vue.data.demo.vuerequest.controller;
 
 import com.vue.data.demo.vuerequest.pojo.ClassRoom;
 import com.vue.data.demo.vuerequest.pojo.Course;
-import com.vue.data.demo.vuerequest.pojo.UserList;
 import com.vue.data.demo.vuerequest.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -137,6 +134,22 @@ public class CourseController {
             msg = "修改失败";
         }
         map.put("msg", msg);
+        return map;
+    }
+
+    /**
+     * getRoomById 根据id查询出教室的信息
+     * @param id
+     * @return
+     */
+    @GetMapping("getRoomById/{id}")
+    public Map<String, Object> getRoomById(@PathVariable("id") Integer id) {
+        Map<String, Object> map = new HashMap<>();
+        ClassRoom roomById = courseService.getRoomById(id);
+        if (roomById != null) {
+            map.put("code", 0);
+            map.put("data", roomById);
+        }
         return map;
     }
 }

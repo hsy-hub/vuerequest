@@ -21,6 +21,8 @@ public interface CourseService {
      */
     public Integer selectCourseCount(String courseName);
 
+
+
     /**
      * selectClassRoom
      * @param map
@@ -41,5 +43,12 @@ public interface CourseService {
      * @return
      */
     public int updateYn(ClassRoom classRoom);
+
+    /**
+     * getRoomById
+     * @param id
+     * @return
+     */
+    public ClassRoom getRoomById(Integer id);
 
 }

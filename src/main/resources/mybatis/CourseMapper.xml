@@ -11,7 +11,7 @@
         </association>
     </resultMap>
     <select id="getCourseList" parameterType="Map" resultMap="courseMap">
-        select co.id,courseName,majorName,m_id from course co left join major m on co.m_id=m.id
+        select co.id,courseName,majorName from course co left join major m on co.m_id=m.id
         <where>
             <if test="courseName != null and courseName !=''">
                 and courseName like '%${courseName}%'
@@ -33,14 +33,9 @@
         select count(*) from classroom
     </select>
     <update id="updateYn" parameterType="classRoom">
-        update classroom set
-        <where>
-            <if test="yn=='是'">
-               and yn="否"
-            </if>
-            <if test="yn=='否'">
-                and yn="是"
-            </if>
-        </where>
+        update classroom set yn=#{yn} where id=#{id}
     </update>
+    <select id="getRoomById" parameterType="ClassRoom" resultType="classRoom">
+        select * from classroom where id=#{id}
+    </select>
 </mapper>

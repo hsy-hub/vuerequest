@@ -18,9 +18,23 @@ public class Course {
      */
     private String courseName;
     /**
+     * book
+     */
+    private String book;
+    /**
+     * introduce
+     */
+    private String introduce;
+    /**
      * m_id
      */
     private Integer m_id;
+
+    /**
+     * image
+     */
+    private String image;
+
     /**
      * major
      */

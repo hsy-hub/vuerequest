@@ -48,4 +48,10 @@ public interface CourseMapper {
      * @return
      */
     public int updateYn(ClassRoom classRoom);
+    /**
+     * getRoomById
+     * @param id
+     * @return
+     */
+    public ClassRoom getRoomById(Integer id);
 }

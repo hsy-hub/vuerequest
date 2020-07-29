@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.vue.data.demo.vuerequest.pojo.Customer;
 import com.vue.data.demo.vuerequest.pojo.User;
 
 import java.util.Date;
@@ -60,6 +61,21 @@ public static String sign(User user) {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT jwt = verifier.verify(token);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
+
+    public boolean clearToken(String tokend)
+    {
+        try {
+            //解密
+            Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            JWTVerifier verifier = JWT.require(algorithm).build();
+           // DecodedJWT jwt = verifier.(tokend);
             return true;
         } catch (IllegalArgumentException e) {
             return false;

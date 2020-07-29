@@ -40,4 +40,9 @@ public class CourseServiceImpl implements CourseService{
     public int updateYn(ClassRoom classRoom) {
         return courseMapper.updateYn(classRoom);
     }
+
+    @Override
+    public ClassRoom getRoomById(Integer id) {
+        return courseMapper.getRoomById(id);
+    }
 }

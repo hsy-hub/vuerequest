@@ -2,94 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.vue.data.demo.vuerequest.mapper.UserMapper">
 
-    <select id="login" parameterType="user" resultType="User">
-        select * from customer where name=#{name} and password=#{password}
-    </select>
-    <insert id="addUser" parameterType="User">
-        insert into customer value (null,#{name},#{password},#{age},#{gender},null,null,null,null,null)
-    </insert>
-    <delete id="delUserById" parameterType="Integer">
-        delete from customer where id=#{id}
-    </delete>
-<resultMap id="UserMAp" type="userList">
-    <id property="id" column="id"></id>
-    <result property="name" column="name"></result>
-    <result property="age" column="age"></result>
-    <result property="gender" column="gender"></result>
-    <association property="major" javaType="Major">
-        <id property="id" column="m_id"></id>
-        <result property="majorName" column="majorName"></result>
-    </association>
-    <association property="class_" javaType="Class_">
-        <id property="id" column="c_id"></id>
-        <result property="className" column="className"></result>
-    </association>
-    <association property="rank" javaType="Rank">
-        <id property="id" column="r_id"></id>
-        <result property="level" column="level"></result>
-    </association>
-    <association property="course" javaType="Course">
-        <id property="id" column="co_id"></id>
-        <result property="courseName" column="courseName"></result>
-    </association>
-    <association property="grade" javaType="Grade">
-        <id property="id" column="g_id"></id>
-        <result property="credit" column="credit"></result>
-</association>
-</resultMap>
-    <select id="getUserList" parameterType="Map" resultMap="UserMAp">
-        SELECT cu.id,NAME,age,gender,majorName,className,LEVEL,courseName,credit
-        FROM customer cu
-        LEFT JOIN major m ON cu.m_id=m.id
-        LEFT JOIN class_ cl ON cu.cl_id=cl.id
-        LEFT JOIN rank r ON cu.r_id=r.id
-        LEFT JOIN course co ON cu.co_id=co.id
-        LEFT JOIN grade g ON cu.g_id=g.id
-        <where>
-            <if test="name != null and name !=''">
-                and name like '%${name}%'
-            </if>
-        </where>
-        limit #{pageStart},#{pageSize}
-    </select>
-    <select id="getUserList1" parameterType="user" resultType="User">
-        select * from customer
-    </select>
-    <select id="getUserByName" parameterType="User" resultType="user">
-        select * from customer
-        <where>
-            <if test="name != null and name !=''">
-                and name like '%${name}%'
-            </if>
-        </where>
-    </select>
-    <select id="getUserById" parameterType="User" resultType="user">
-        select * from customer where id=#{id}
-    </select>
-    <select id="getMajorList" parameterType="major" resultType="Major">
-        select * from major
-    </select>
-    <select id="getClassList" parameterType="class_" resultType="Class_">
-        select * from class_
-    </select>
-    <update id="updateUser" parameterType="userList">
-        update customer set name=#{name},age=#{age},gender=#{gender},m_id=#{m_id},cl_id=#{cl_id} where id=#{id}
-    </update>
+    <resultMap id="User1Map" type="userList1">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <result property="gender" column="gender"></result>
+        <association property="classRoom" javaType="ClassRoom">
+            <id property="id" column="cr_id"></id>
+            <result property="classnum" column="classnum"></result>
+        </association>
+        <association property="rank" javaType="Rank">
+            <id property="id" column="r_id"></id>
+            <result property="level" column="level"></result>
+        </association>
+    </resultMap>
 
-    <!--<update id="updatePwd" parameterType="user">-->
-        <!--update user set password=#{password} where id=#{id}-->
-    <!--</update>-->
-    <!--<update id="updateName" parameterType="user">-->
-        <!--update user set name=#{name} where id=#{id}-->
-    <!--</update>-->
-    <delete id="deleteUser" parameterType="list">
-        delete from customer where id in
-        <foreach collection="list" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-    <select id="selectUserCount" resultType="integer">
+    <select id="getUserListSearch" parameterType="Map" resultMap="User1Map">
+        SELECT u.id,name,age,gender,classnum,level
+        FROM USER u
+        LEFT JOIN classroom cr ON u.cr_id=cr.id
+        left join rank r on u.r_id=r.id
+    </select>
+
+    <select id="getUser1Count" resultType="integer">
         select count(*) from customer
     </select>
 
+    <update id="updatePwd" parameterType="user">
+        update user set password=#{password} where id=#{id}
+    </update>
 </mapper>

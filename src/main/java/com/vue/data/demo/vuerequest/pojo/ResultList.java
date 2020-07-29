@@ -12,7 +12,7 @@ public class ResultList {
 
 
 private int code;
-private List<User> data;
+private List<Customer> data;
 
     public int getCode() {
         return code;
@@ -22,11 +22,11 @@ private List<User> data;
         this.code = code;
     }
 
-    public List<User> getData() {
+    public List<Customer> getData() {
         return data;
     }
 
-    public void setData(List<User> data) {
+    public void setData(List<Customer> data) {
         this.data = data;
     }
 }
